@@ -1,0 +1,102 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import DashboardPage from "@/pages/Dashboard";
+import AiTutorPage from "@/pages/AiTutor";
+import FlashcardsPage from "@/pages/Flashcards";
+import StudyPlanPage from "@/pages/StudyPlan";
+import AnalyticsPage from "@/pages/Analytics";
+import NotesPage from "@/pages/Notes";
+import DailyQuizPage from "@/pages/DailyQuiz";
+import MCQPage from "@/pages/MCQ";
+import AIDetectionPage from "./pages/AIDetection";
+import ExamSimulatorPage from "@/pages/ExamSimulator";
+import WeakTopicsPage from "@/pages/WeakTopics";
+import RevisionPlanPage from "@/pages/RevisionPlan";
+import UploadSyllabusPage from "@/pages/UploadSyllabus";
+import CodingPracticePage from "@/pages/CodingPractice";
+import VoiceLearningPage from "@/pages/VoiceLearning";
+import ProfilePage from "@/pages/Profile";
+import SettingsPage from "@/pages/Settings";
+import ProgressPage from "@/pages/Progress";
+import SubscriptionPage from "@/pages/Subscription";
+import StudyGroupPage from "@/pages/StudyGroup";
+import StudyStreakPage from "@/pages/StudyStreak";
+import RegisterPage from "@/pages/Register";
+import LoginPage from "@/pages/Login";
+import VerifyEmailPage from "@/pages/VerifyEmail";
+import ForgotPasswordPage from "@/pages/ForgotPassword";
+import ResetPasswordPage from "@/pages/ResetPassword";
+import VerifyOtpPage from "@/pages/VerifyOtp";
+import SetNewPasswordPage from "@/pages/SetNewPassword";
+import SearchPage from "@/pages/Search";
+import SyllabusDetailPage from "@/pages/SyllabusDetail";
+import NotificationsPage from "@/pages/Notifications";
+import { ProtectedRoute, PublicRoute, AdminRoute, SuperAdminRoute } from "@/components/ProtectedRoute";
+import { useAuthStore } from "@/store/authStore";
+import HomePage from "@/pages/HomePage";
+import AdminRegisterPage from "@/pages/AdminRegister";
+import AdminDashboardPage from "@/pages/AdminDashboard";
+import UploadSyllabus from "@/pages/UploadSyllabus";
+import CodingPractice from "./pages/CodingPractice";
+import VoiceLearning from "./pages/VoiceLearning";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Progress from "./pages/Progress";
+import AboutPage from "@/pages/About";
+
+export default function App() {
+  useEffect(() => {
+    useAuthStore.getState().checkAuth();
+  }, []);
+
+  return (
+    <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+<Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+        <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+        <Route path="/syllabus/:id" element={<ProtectedRoute><SyllabusDetailPage /></ProtectedRoute>} />
+        <Route path="/ai-tutor" element={<ProtectedRoute><AiTutorPage /></ProtectedRoute>} />
+        <Route path="/ai-detection" element={<ProtectedRoute><Suspense fallback={<RouteFallback />}><AIDetectionPage/></Suspense></ProtectedRoute>} />
+        <Route path="/flashcards" element={<ProtectedRoute><FlashcardsPage /></ProtectedRoute>} />
+        <Route path="/study-plan" element={<ProtectedRoute><StudyPlanPage /></ProtectedRoute>} />
+        <Route path="/notes" element={<ProtectedRoute><NotesPage /></ProtectedRoute>} />
+        <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
+        <Route path="/daily-quiz" element={<ProtectedRoute><DailyQuizPage /></ProtectedRoute>} />
+        <Route path="/mcq" element={<ProtectedRoute><MCQPage /></ProtectedRoute>} />
+        <Route path="/exam-simulator" element={<ProtectedRoute><ExamSimulatorPage /></ProtectedRoute>} />
+        <Route path="/weak-topics" element={<ProtectedRoute><WeakTopicsPage /></ProtectedRoute>} />
+        <Route path="/revision-plan" element={<ProtectedRoute><RevisionPlanPage /></ProtectedRoute>} />
+        <Route path="/upload-syllabus" element={<ProtectedRoute><UploadSyllabusPage /></ProtectedRoute>} />
+        <Route path="/coding-practice" element={<ProtectedRoute><CodingPracticePage /></ProtectedRoute>} />
+        <Route path="/voice-learning" element={<ProtectedRoute><VoiceLearningPage /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
+        <Route path="/study-groups" element={<ProtectedRoute><StudyGroupPage /></ProtectedRoute>} />
+        <Route path="/study-streak" element={<ProtectedRoute><StudyStreakPage /></ProtectedRoute>} />
+        <Route path="/subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
+        <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/verify-email" element={<PublicRoute><VerifyEmailPage /></PublicRoute>} />
+        <Route path="/forgot-password" element={<PublicRoute><ForgotPasswordPage /></PublicRoute>} />
+        <Route path="/reset-password" element={<PublicRoute><ResetPasswordPage /></PublicRoute>} />
+        <Route path="/verify-otp" element={<PublicRoute><VerifyOtpPage /></PublicRoute>} />
+        <Route path="/set-new-password" element={<PublicRoute><SetNewPasswordPage /></PublicRoute>} />
+        <Route path="/admin/register" element={<AdminRegisterPage />} />
+        <Route path="/admin/dashboard" element={<SuperAdminRoute><AdminDashboardPage /></SuperAdminRoute>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function RouteFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="text-sm font-medium text-slate-400">Loading…</div>
+    </div>
+  );
+}
