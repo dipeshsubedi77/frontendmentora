@@ -1,9 +1,13 @@
 import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { Token } from "@/types";
 
-// Resolve the backend API base URL. Prefers VITE_API_URL; otherwise derive it
-// from the hostname the page is opened on so LAN/IP access works (a friend
-// opening http://<lan-ip>:5173 hits http://<lan-ip>:8000, not their own localhost).
+// Set the correct backend origin for the deployment. `VITE_API_URL` is set in
+// the Vercel dashboard; if it is ever missing this fallback keeps the app talking
+// to the deployed API instead of failing against its own origin.
+export const DEFAULT_API_URL = "https://mentora-backend-7.onrender.com";
+
+// Resolve the backend API base URL. Prefers VITE_API_URL; otherwise fall back to
+// the deployed API, or localhost when running locally for development.
 export function getApiBase(): string {
   const configured = import.meta.env.VITE_API_URL;
   if (configured) return configured;
@@ -12,7 +16,7 @@ export function getApiBase(): string {
   if (hostname === "localhost" || hostname === "127.0.0.1") {
     return "http://localhost:8000";
   }
-  return `http://${hostname}:8000`;
+  return DEFAULT_API_URL;
 }
 
 class ApiClient {
@@ -20,8 +24,8 @@ class ApiClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: import.meta.env.VITE_API_URL ?? "",
-      timeout: 30000,
+      baseURL: getApiBase(),
+      timeout: 60000,
     });
 
     this.setupInterceptors();
