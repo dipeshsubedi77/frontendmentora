@@ -63,7 +63,7 @@ The repo is pre-configured for Vercel via `vercel.json` (SPA rewrites included),
 
 1. In the [Vercel dashboard](https://vercel.com), click **Add New → Project → Import Git Repository** and pick this repository.
 2. Vercel auto-detects the **Vite** framework (`build` → `npm run build`, output → `dist`).
-3. Add the environment variable **`VITE_API_URL`** → your deployed backend origin (e.g. `https://mentora-backend.onrender.com`).
+3. Add the environment variable **`VITE_API_URL`** → your deployed backend origin (e.g. `https://mentora-backend-7.onrender.com`).
 4. Click **Deploy**.
 
 > Note: `.env.production` is intentionally not committed. Backend URLs are injected via **Vercel environment variables** so preview/deploy branches can each target their own backend.
@@ -72,7 +72,7 @@ The repo is pre-configured for Vercel via `vercel.json` (SPA rewrites included),
 
 ```bash
 npm i -g vercel
-vercel env add VITE_API_URL production   # https://mentora-backend.onrender.com
+vercel env add VITE_API_URL production   # https://mentora-backend-7.onrender.com
 vercel --prod
 ```
 
