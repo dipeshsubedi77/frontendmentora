@@ -4,7 +4,7 @@ import { Token } from "@/types";
 // Set the correct backend origin for the deployment. `VITE_API_URL` is set in
 // the Vercel dashboard; if it is ever missing this fallback keeps the app talking
 // to the deployed API instead of failing against its own origin.
-export const DEFAULT_API_URL = "https://mentora-backend-7.onrender.com";
+export const DEFAULT_API_URL = "https://mentora-backend-9.onrender.com";
 
 // Resolve the backend API base URL. Prefers VITE_API_URL; otherwise fall back to
 // the deployed API, or localhost when running locally for development.

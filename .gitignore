@@ -7,7 +7,9 @@ dist
 dist-ssr
 *.local
 
-# Environment variables
+# Environment variables — .env.production is intentionally NOT ignored.
+# It only contains VITE_API_URL (a public backend URL, no secrets) and
+# Vercel reads it automatically during `vite build` (mode=production).
 .env
 .env.local
 .env.development.local
@@ -39,5 +41,3 @@ tsconfig.tsbuildinfo
 
 # Antigravity artifacts
 .gemini
-.env.production
-# Vercel/Render-injected (never commit baked host or secrets)
